@@ -9,7 +9,7 @@ export const customError = (
 	next: NextFunction
 ) => {
 	const error = new CustomError(err.status, err.message, err.additionalInfo);
-
+	console.log("error",error);
 	if (error.status === 500) {
 		return res.status(error.status).json({
 			status: error.status,

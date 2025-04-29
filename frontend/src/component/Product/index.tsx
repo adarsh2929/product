@@ -1,10 +1,11 @@
 import { useState, useEffect, ChangeEvent } from 'react';
-import {  Button, message } from 'antd';
+import {  Button } from 'antd';
 import { useDebounce } from "use-debounce";
 import ProductTable from './ProductTable';
 import { ProductData } from './types';
 import { getProduct } from '../../API/productAPI';
 import ProductModal from './ProductModel';
+import { toastText } from '../../utils/constant';
 
 const Product = () => {
   const [products, setProducts] = useState<ProductData[]>([]);
@@ -33,7 +34,7 @@ const Product = () => {
       setProducts(response.data.data.data);
       setTotal(response.data.data.total);
     } catch (error) {
-      message.error('Failed to fetch products');
+      toastText('Failed to fetch products', 'error');
       console.error(error);
     } finally {
       setLoading(false);
@@ -72,7 +73,6 @@ const Product = () => {
       attributes: formatAttributesForForm(product.attributes)
     };
 
-    console.log("formattedProduct",formattedProduct)
 
     setEditProduct(formattedProduct);
     setModalVisible(true);

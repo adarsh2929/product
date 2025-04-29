@@ -4,6 +4,7 @@ import { Form, Input, InputNumber, Button, Space, Card, message, Upload } from '
 import { createProduct, updateProduct } from '../../../API/productAPI';
 import { PlusOutlined } from '@ant-design/icons';
 import { getProductImageUrl } from '../../../API/productAPI';
+import { toastText } from '../../../utils/constant';
 
 // Make this a function to ensure a fresh object each time
 const createDefaultAttribute = () => ({ key: '', values: [''] });
@@ -130,11 +131,11 @@ const ProductForm = ({ initialData = {}, isEdit = false, onSuccess, onClose }:an
       } else {
         await createProduct('/product/create', payload);
       }
-      message.success(`Product successfully ${isEdit ? 'updated' : 'created'}`);
-      onSuccess?.();
+        toastText(`Product successfully ${isEdit ? 'updated' : 'created'}`, 'success');
+        onSuccess?.();
       onClose?.();
     } catch (e) {
-      message.error(`Failed to ${isEdit ? 'update' : 'create'} product`);
+      toastText(`Failed to ${isEdit ? 'update' : 'create'} product`, 'error');
     } finally {
       setLoading(false);
     }
